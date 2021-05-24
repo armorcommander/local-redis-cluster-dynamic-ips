@@ -1,0 +1,18 @@
+[user]
+	name = armorcommander
+	email = armorcommander.dev@gmail.com
+[credential]
+	# helper = store
+	helper = /c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe
+[core]
+	autocrlf = input
+	editor = /c/Users/m1a1h/AppData/Local/Programs/Microsoft\\ VS\\ Code/bin/code
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[color]
+	ui = auto
+[pull]
+	rebase = false

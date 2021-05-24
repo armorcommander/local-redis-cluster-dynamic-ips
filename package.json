@@ -1,0 +1,16 @@
+{
+  "name": "local-redis-cluster-dynamic-ips",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/armorcommander/docker-compose-redis-cluster"
+  },
+  "scripts": {
+    "go": "docker-compose up -d --build && npm run create-cluster",
+    "up": "docker-compose up -d --build",
+    "down": "docker-compose down",
+    "create-cluster": "docker exec -it redis-cluster-0 redis-cli --cluster create $(docker inspect --format='{{.Name}} {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}:{{range $p, $conf := .NetworkSettings.Ports}}{{(index $conf 0).HostPort}}{{end}}' $(docker ps -aq --filter 'name=redis-cluster') | sort | cut -d' ' -f2 | tr -s '\n' ' ') --cluster-yes --cluster-replicas 1",
+    "list-container-ips": "docker inspect --format='{{.Name}} {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}:{{range $p, $conf := .NetworkSettings.Ports}}{{(index $conf 0).HostPort}}{{end}}' $(docker ps -aq --filter 'name=redis-cluster') | sort | cut -d' ' -f2"
+  }
+}
